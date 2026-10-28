@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<!--
+  Content-Security-Policy
+  - default-src 'none'      : deny everything not explicitly allowed below
+  - script-src / style-src  : only the exact inline script/style blocks of this page (SHA-256 pinned)
+  - Google Fonts             : stylesheet from fonts.googleapis.com, font files from fonts.gstatic.com
+  - require-trusted-types    : blocks DOM-XSS sinks (innerHTML, etc.)
+  NOTE: if you edit the inline style or script blocks, re-run `node update-csp.mjs` to refresh the hashes.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-l1w7vUWu1QddyJ1hQR7Ta4KFjSK26HmPXuxlnFHicS4='; style-src 'sha256-fI/y0SYKbtsbTOOof0AWUd0LPc/9ZoZ4bpN1ebuHUwo=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'none'; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+<meta name="format-detection" content="telephone=no">
+<title>Privacy Policy — PHONE TERMINAL</title>
+<meta name="description" content="Privacy Policy for PHONE TERMINAL, an Android productivity app. Zero data collection: no ads, no analytics, no trackers. Everything stays on your device.">
+
+<!-- Font: JetBrains Mono — SIL Open Font License 1.1 (open source, free for commercial use) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap">
+
+<style>
+/* =========================================================
+   1. TOKENS
+   ========================================================= */
+:root {
+  --bg: #000000;
+  --glass: rgba(20, 20, 20, 0.75);
+  --glass-fallback: rgba(20, 20, 20, 0.95);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #ededed;
+  --muted: #9a9a9a;
+  --accent: #ffb300;
+  --accent-soft: rgba(255, 179, 0, 0.35);
+  --accent-glow: 0 0 10px rgba(255, 179, 0, 0.45);
+
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
+
+  /* Fluid scale: mobile-first, grows smoothly to desktop */
+  --fs-sm:   clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --fs-base: clamp(0.875rem, 0.83rem + 0.25vw, 1rem);
+  --fs-h2:   clamp(0.875rem, 0.83rem + 0.25vw, 1rem);
+  --fs-h1:   clamp(1.5rem, 1rem + 3.5vw, 2.6rem);
+
+  --pad:    clamp(1rem, 0.6rem + 2vw, 2rem);
+  --gap:    clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  --radius: 16px;
+}
+
+/* =========================================================
+   2. BASE / RESET
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--accent-soft);
+  transition: text-shadow 0.2s, border-color 0.2s;
+}
+a:hover, a:focus-visible { text-shadow: var(--accent-glow); border-bottom-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+code {
+  font-family: inherit;
+  font-size: 0.92em;
+  color: var(--accent);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.05em 0.4em;
+  overflow-wrap: anywhere;
+}
+
+strong { color: #fff; font-weight: 700; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem; top: -3rem;
+  z-index: 10;
+  padding: 0.5rem 0.75rem;
+  background: #000;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+}
+.skip-link:focus { top: 0.75rem; }
+
+/* =========================================================
+   3. BACKGROUND CANVAS
+   ========================================================= */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* =========================================================
+   4. LAYOUT
+   ========================================================= */
+.shell {
+  width: min(100% - 1.25rem, 56rem);
+  margin-inline: auto;
+  padding-block: 0.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: var(--glass-fallback); }
+}
+
+/* =========================================================
+   5. COMPONENTS
+   ========================================================= */
+
+/* --- Title bar --- */
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem var(--pad);
+  border-bottom: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--muted);
+  font-size: var(--fs-sm);
+}
+.titlebar__dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: #3a3a3a; }
+.titlebar__dot:last-of-type { background: var(--accent); box-shadow: var(--accent-glow); }
+.titlebar__path { min-width: 0; margin-left: 0.25rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* --- Section block --- */
+.block { padding: var(--pad); display: flex; flex-direction: column; gap: 0.9rem; }
+.block + .block { border-top: 1px dashed var(--line); }
+
+/* --- Header --- */
+.hero__prompt { color: var(--muted); font-size: var(--fs-sm); }
+.hero__prompt b { color: var(--accent); font-weight: 400; }
+.hero__title { font-size: var(--fs-h1); line-height: 1.2; letter-spacing: 0.04em; }
+.hero__title span { color: var(--accent); text-shadow: var(--accent-glow); }
+.hero__meta { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; color: var(--muted); font-size: var(--fs-sm); }
+.hero__meta b { color: var(--text); font-weight: 400; }
+
+.cursor {
+  display: inline-block;
+  width: 0.55em; height: 1em;
+  margin-left: 0.2em;
+  vertical-align: -0.12em;
+  background: var(--accent);
+  box-shadow: var(--accent-glow);
+  animation: blink 1.05s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- TL;DR banner --- */
+.tldr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: var(--gap);
+  border: 1px solid var(--accent-soft);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 0 24px rgba(255, 179, 0, 0.04);
+}
+.tldr__tag {
+  align-self: flex-start;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #000;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+/* --- Headings --- */
+.h2 {
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.h2::before { content: '# '; color: var(--muted); }
+
+/* --- Terminal list --- */
+.term-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.term-list li { position: relative; padding-left: 2em; }
+.term-list li::before { content: '>_'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* --- Table of contents --- */
+.toc { display: grid; grid-template-columns: 1fr; gap: 0.35rem 1.5rem; }
+.toc a { color: var(--text); border-bottom: 0; }
+.toc a:hover, .toc a:focus-visible { color: var(--accent); }
+
+/* --- Permission cards --- */
+.perms { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
+.perm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: var(--gap);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+}
+.perm__idx, .perm__label { color: var(--muted); font-size: var(--fs-sm); }
+.perm__name { font-size: var(--fs-base); }
+.perm__name code { font-size: 1em; }
+
+.muted { color: var(--muted); }
+
+/* --- Footer --- */
+.footer { text-align: center; color: var(--muted); font-size: var(--fs-sm); }
+.footer .cursor { width: 0.5em; height: 0.9em; }
+
+/* =========================================================
+   6. BREAKPOINTS (mobile-first: enhance upward)
+   ========================================================= */
+@media (min-width: 40em) {
+  .shell { width: min(100% - 3rem, 56rem); padding-block: 2.5rem 3rem; }
+  .toc { grid-template-columns: repeat(2, 1fr); }
+  .tldr { flex-direction: row; align-items: flex-start; }
+  .tldr__tag { margin-top: 0.2rem; }
+}
+@media (min-width: 60em) {
+  .perms { grid-template-columns: repeat(3, 1fr); }
+  .toc { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* =========================================================
+   7. ACCESSIBILITY PREFERENCES
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cursor { animation: none; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Decorative animated terminal background -->
+<canvas class="bg-canvas" id="bg" aria-hidden="true"></canvas>
+
+<div class="shell">
+  <main class="glass" id="main">
+
+    <div class="titlebar" aria-hidden="true">
+      <span class="titlebar__dot"></span><span class="titlebar__dot"></span><span class="titlebar__dot"></span>
+      <span class="titlebar__path">phone-terminal@android:~/legal/privacy_policy</span>
+    </div>
+
+    <!-- HEADER -->
+    <header class="block hero">
+      <p class="hero__prompt" aria-hidden="true"><b>$</b> cat privacy_policy.txt</p>
+      <h1 class="hero__title"><span aria-hidden="true">&gt;_ </span>PHONE TERMINAL<span class="visually-hidden"> — Privacy Policy</span><i class="cursor" aria-hidden="true"></i></h1>
+      <p class="hero__meta">
+        <span>doc: <b>PRIVACY_POLICY</b></span>
+        <span>platform: <b>Android</b></span>
+        <span>last_updated: <b><time datetime="2026-10-28">2026-10-28</time></b></span>
+      </p>
+
+      <div class="tldr" role="note" aria-label="Summary">
+        <span class="tldr__tag">TL;DR</span>
+        <p>
+          <strong>We never receive your data.</strong>
+          There are no servers of ours, no accounts, no ads, no analytics and no trackers, and nothing is ever sold.
+          Your commands, notes and settings are saved <strong>only on your device</strong> and are excluded from cloud backup.
+          The only network request the app makes is the <code>&gt; ping</code> check you run yourself.
+        </p>
+      </div>
+    </header>
+
+    <!-- TABLE OF CONTENTS -->
+    <nav class="block" aria-labelledby="toc-title">
+      <h2 class="h2" id="toc-title">Contents</h2>
+      <ul class="toc term-list">
+        <li><a href="#data">Data Collection &amp; Storage</a></li>
+        <li><a href="#permissions">Required Permissions</a></li>
+        <li><a href="#third-parties">Ads, Analytics &amp; Trackers</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#children">Children's Privacy</a></li>
+        <li><a href="#changes">Policy Changes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- DATA -->
+    <section class="block" id="data" aria-labelledby="data-title">
+      <h2 class="h2" id="data-title">Data Collection &amp; Storage</h2>
+      <p>PHONE TERMINAL is an offline-first productivity tool. We do not operate servers that receive data from the app, and there are no user accounts.</p>
+      <ul class="term-list">
+        <li>We collect no personal information (name, email, phone number, contacts, location, device identifiers, etc.).</li>
+        <li>The app contains zero ads, zero analytics, and zero third-party trackers.</li>
+        <li>We never receive, sell, rent or share your data. Nothing leaves your device except the <code>&gt; ping</code> check described below, and what you choose to pass to another app or your browser.</li>
+        <li>Custom commands, notes and app settings are stored <strong>locally only</strong>, in the app's private storage, which Android's app sandbox keeps unreadable by other apps.</li>
+        <li>Android cloud backup and device-to-device transfer of the app's data are disabled, so this data never leaves your device through backups.</li>
+        <li>Uninstalling the app permanently removes all locally stored data.</li>
+        <li>Some commands read information <strong>on your device only</strong>, to show it to you, and never send it anywhere: Android version, device model, uptime, battery level, temperature and charging state, free memory and storage, screen size and processor (<code>&gt; sys</code>, <code>&gt; neofetch</code>, <code>&gt; uptime</code>), and your device's local network address (<code>&gt; ip</code>).</li>
+        <li>To let you open and connect your own apps, the app reads the list of apps on your device that have a launcher icon (their names and icons), on your device only. This is used by <code>CONNECT APPS</code>, <code>CREATE COMMAND</code> and <code>&gt; open &lt;app&gt;</code>. It is never sent anywhere.</li>
+        <li><strong>Clipboard.</strong> The app reads your clipboard only when you tap <code>PASTE</code> in the custom ASCII art screen, to paste the art you copied. It writes to your clipboard only when you ask it to: copying the art prompt, <code>&gt; pass</code> (a new password), or a clipboard command you created.</li>
+      </ul>
+    </section>
+
+    <!-- PERMISSIONS -->
+    <section class="block" id="permissions" aria-labelledby="perm-title">
+      <h2 class="h2" id="perm-title">Required Permissions</h2>
+      <p class="muted">PHONE TERMINAL requests only the permissions below. Each is used only for the feature described.</p>
+
+      <div class="perms">
+        <article class="perm">
+          <span class="perm__idx">[1/5]</span>
+          <h3 class="perm__name"><code>SYSTEM_ALERT_WINDOW</code></h3>
+          <span class="perm__label">Display over other apps</span>
+          <p>Required to draw the Floating Terminal HUD, the custom Screen Dimmer filter, and the real-time FPS monitor overlay on top of the screen.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[2/5]</span>
+          <h3 class="perm__name"><code>FOREGROUND_SERVICE</code> + <code>FOREGROUND_SERVICE_SPECIAL_USE</code></h3>
+          <span class="perm__label">Keep the HUD running</span>
+          <p>Keep the Floating Terminal HUD alive while you use other apps, with an ongoing notification that has a <code>CLOSE HUD</code> button. It runs only after you start the HUD yourself.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[3/5]</span>
+          <h3 class="perm__name"><code>POST_NOTIFICATIONS</code></h3>
+          <span class="perm__label">Show notifications</span>
+          <p>Show the HUD's ongoing notification (Android 13 and later). No other notifications are sent. You can deny it and the app still works.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[4/5]</span>
+          <h3 class="perm__name"><code>INTERNET</code></h3>
+          <span class="perm__label">Network access</span>
+          <p>Required strictly for the <code>&gt; ping</code> command, which checks whether the host you type is reachable (your network looks up that name first). If you type no host, and for the home-screen widget's PING shortcut, it checks <code>8.8.8.8</code> (Google Public DNS). No data about you is sent.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[5/5]</span>
+          <h3 class="perm__name"><code>SET_ALARM</code></h3>
+          <span class="perm__label">Set alarms &amp; timers</span>
+          <p>Required by the <code>&gt; timer</code> command to silently schedule background countdown timers with the system Clock app without interrupting the user's active screen.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ADS / ANALYTICS / TRACKERS -->
+    <section class="block" id="third-parties" aria-labelledby="tp-title">
+      <h2 class="h2" id="tp-title">Ads, Analytics &amp; Trackers</h2>
+      <ul class="term-list">
+        <li><strong>Zero ads.</strong> The app contains no advertising of any kind.</li>
+        <li><strong>Zero analytics.</strong> The app contains no analytics or crash-reporting tools.</li>
+        <li><strong>Zero third-party trackers.</strong> The app includes no third-party tracking SDKs and shares no data with advertisers, data brokers, or analytics providers.</li>
+        <li>The app works offline. The only network requests the app itself makes are the <code>&gt; ping</code> checks described above.</li>
+        <li>Shortcut commands you run yourself (for example web searches, <code>&gt; wa</code>, or sending a note to an app you connected) open your browser or that other app through standard Android intents, passing only the text you typed. From that point, that app's own privacy policy applies.</li>
+        <li><strong>Purchases.</strong> The app is bought through Google Play, which handles the payment under Google's own privacy policy. We never see your card or payment details. Google Play gives developers standard order records for paid apps, and we use them only for refunds and support.</li>
+        <li><strong>This web page.</strong> When you open this policy in a web browser, the page loads the JetBrains Mono font from Google Fonts. The copy of this policy shown inside the app loads nothing from the internet.</li>
+      </ul>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="block" id="security" aria-labelledby="sec-title">
+      <h2 class="h2" id="sec-title">Security</h2>
+      <p>Because your data never leaves your device, its protection relies on Android's app sandbox, which prevents other apps from reading PHONE TERMINAL's private storage. We recommend keeping your device locked and your operating system up to date.</p>
+    </section>
+
+    <!-- CHILDREN -->
+    <section class="block" id="children" aria-labelledby="kids-title">
+      <h2 class="h2" id="kids-title">Children's Privacy</h2>
+      <p>Since we collect no personal data from anyone, we do not knowingly collect personal information from children.</p>
+    </section>
+
+    <!-- CHANGES -->
+    <section class="block" id="changes" aria-labelledby="chg-title">
+      <h2 class="h2" id="chg-title">Policy Changes</h2>
+      <p>If this policy changes, the updated version will be posted on this page with a new "last_updated" date. Any change that affects data handling or permissions will also be reflected in the app's Google Play listing.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="block" id="contact" aria-labelledby="contact-title">
+      <h2 class="h2" id="contact-title">Contact</h2>
+      <p>Questions about this policy? Reach out at:
+        <a href="mailto:mainmedai9@gmail.com">mainmedai9@gmail.com</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 PHONE TERMINAL — exit 0<i class="cursor" aria-hidden="true"></i></p>
+  </footer>
+</div>
+
+<script>
+/**
+ * Terminal Grid Background
+ * Rows of monospace glyphs drifting horizontally, with sparse white pulses.
+ * Performance: each row is pre-rendered once into an offscreen tile, so a frame
+ * costs ~2 drawImage calls per row plus a handful of pulse glyphs.
+ */
+(() => {
+  'use strict';
+
+  const CONFIG = Object.freeze({
+    cell: 18,                                    // grid cell size (CSS px)
+    glyphs: '--__==::..01>/|+',                  // character pool
+    density: 0.55,                               // share of non-empty cells
+    greys: ['#333333', '#3b3b3b', '#444444', '#4c4c4c', '#555555'],
+    speed: [10, 42],                             // px/s range per row
+    pulse: { max: 22, spawnPerSec: 9, life: [700, 1800], length: [1, 5] },
+    mutationsPerSec: 40,                         // random glyph changes per second
+    maxDpr: 2
+  });
+
+  const canvas = document.getElementById('bg');
+  const ctx = canvas && canvas.getContext('2d', { alpha: false });
+  if (!ctx) return;
+
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const FONT = `${Math.round(CONFIG.cell * 0.78)}px "JetBrains Mono", ui-monospace, monospace`;
+
+  const state = { w: 0, h: 0, dpr: 1, cols: 0, tileW: 0, rows: [], pulses: [], last: 0, raf: 0, mutAcc: 0, spawnAcc: 0 };
+
+  /* ---------- helpers ---------- */
+  const rand = (min, max) => min + Math.random() * (max - min);
+  const randInt = (min, max) => Math.floor(rand(min, max + 1));
+  const pick = (arr) => arr[(Math.random() * arr.length) | 0];
+  const randomGlyph = () => (Math.random() < CONFIG.density ? pick(CONFIG.glyphs) : ' ');
+
+  /* ---------- row tiles ---------- */
+  function paintCell(row, col) {
+    const { cell } = CONFIG;
+    const t = row.tctx;
+    t.fillStyle = '#000000';
+    t.fillRect(col * cell, 0, cell, cell);
+    const g = row.glyphs[col];
+    if (g === ' ') return;
+    t.fillStyle = pick(CONFIG.greys);
+    t.fillText(g, col * cell + cell / 2, cell / 2);
+  }
+
+  function createRow(index) {
+    const { cell } = CONFIG;
+    const tile = document.createElement('canvas');
+    tile.width = Math.ceil(state.tileW * state.dpr);
+    tile.height = Math.ceil(cell * state.dpr);
+
+    const tctx = tile.getContext('2d', { alpha: false });
+    tctx.scale(state.dpr, state.dpr);
+    tctx.font = FONT;
+    tctx.textAlign = 'center';
+    tctx.textBaseline = 'middle';
+
+    const row = {
+      tile, tctx,
+      y: index * cell,
+      offset: Math.random() * state.tileW,
+      speed: rand(CONFIG.speed[0], CONFIG.speed[1]),
+      glyphs: Array.from({ length: state.cols }, randomGlyph)
+    };
+    for (let c = 0; c < state.cols; c++) paintCell(row, c);
+    return row;
+  }
+
+  function build() {
+    const { cell, maxDpr } = CONFIG;
+    state.dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+    state.w = window.innerWidth;
+    state.h = window.innerHeight;
+
+    canvas.width = Math.round(state.w * state.dpr);
+    canvas.height = Math.round(state.h * state.dpr);
+
+    state.cols = Math.ceil(state.w / cell) + 2;
+    state.tileW = state.cols * cell;
+    state.rows = Array.from({ length: Math.ceil(state.h / cell) + 1 }, (_, i) => createRow(i));
+    state.pulses.length = 0;
+    render();
+  }
+
+  /* ---------- pulses (white "data packets") ---------- */
+  function spawnPulse() {
+    const row = pick(state.rows);
+    const col = randInt(0, state.cols - 1);
+    state.pulses.push({
+      row, col,
+      len: randInt(CONFIG.pulse.length[0], CONFIG.pulse.length[1]),
+      age: 0,
+      life: rand(CONFIG.pulse.life[0], CONFIG.pulse.life[1])
+    });
+  }
+
+  function drawPulse(p) {
+    const { cell } = CONFIG;
+    const { row } = p;
+    const env = Math.sin(Math.PI * (p.age / p.life));   // fade in -> fade out
+    const base = row.offset % state.tileW;
+
+    for (let i = 0; i < p.len; i++) {
+      const col = (p.col + i) % state.cols;
+      const g = row.glyphs[col] === ' ' ? '-' : row.glyphs[col];
+      const alpha = env * (1 - i / (p.len + 1));
+      let x = (base + col * cell) % state.tileW;
+
+      for (let k = 0; k < 2; k++, x -= state.tileW) {      // draw both wrap copies
+        if (x < -cell || x > state.w) continue;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(x, row.y, cell, cell);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowBlur = 8 * alpha;
+        ctx.fillText(g, x + cell / 2, row.y + cell / 2);
+        ctx.shadowBlur = 0;
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /* ---------- loop ---------- */
+  function update(dt) {
+    for (const row of state.rows) row.offset = (row.offset + row.speed * dt) % state.tileW;
+
+    state.mutAcc += CONFIG.mutationsPerSec * dt;
+    while (state.mutAcc >= 1) {
+      state.mutAcc -= 1;
+      const row = pick(state.rows);
+      const col = randInt(0, state.cols - 1);
+      row.glyphs[col] = randomGlyph();
+      paintCell(row, col);
+    }
+
+    state.spawnAcc += CONFIG.pulse.spawnPerSec * dt;
+    while (state.spawnAcc >= 1) {
+      state.spawnAcc -= 1;
+      if (state.pulses.length < CONFIG.pulse.max) spawnPulse();
+    }
+
+    for (const p of state.pulses) p.age += dt * 1000;
+    state.pulses = state.pulses.filter((p) => p.age < p.life);
+  }
+
+  function render() {
+    const { cell } = CONFIG;
+    ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, state.w, state.h);
+
+    for (const row of state.rows) {
+      const x = row.offset % state.tileW;
+      ctx.drawImage(row.tile, x - state.tileW, row.y, state.tileW, cell);
+      ctx.drawImage(row.tile, x, row.y, state.tileW, cell);
+    }
+
+    ctx.font = FONT;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.85)';
+    for (const p of state.pulses) drawPulse(p);
+  }
+
+  function frame(now) {
+    const dt = Math.min((now - state.last) / 1000, 0.1);   // clamp after tab switches
+    state.last = now;
+    update(dt);
+    render();
+    state.raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    stop();
+    if (motionQuery.matches || document.hidden) { render(); return; }
+    state.last = performance.now();
+    state.raf = requestAnimationFrame(frame);
+  }
+
+  function stop() {
+    cancelAnimationFrame(state.raf);
+    state.raf = 0;
+  }
+
+  /* ---------- events ---------- */
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { build(); start(); }, 150);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  motionQuery.addEventListener('change', start);
+
+  /* ---------- init ---------- */
+  build();
+  start();
+  if (document.fonts && document.fonts.load) {
+    // Canvas text does not trigger webfont loading on its own: request it explicitly, then repaint tiles.
+    document.fonts.load(FONT).then(() => { build(); start(); }, () => {});
+  }
+})();
+</script>
+</body>
+</html>
