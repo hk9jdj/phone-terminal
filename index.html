@@ -16,8 +16,8 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#000000">
 <meta name="format-detection" content="telephone=no">
-<title>Privacy Policy — PHONE TERMINAL</title>
-<meta name="description" content="Privacy Policy for PHONE TERMINAL, an Android productivity app. Zero data collection: no ads, no analytics, no trackers. Everything stays on your device.">
+<title>Terminal Agent — Privacy Policy</title>
+<meta name="description" content="Privacy Policy for TERMINAL AGENT, an Android terminal app. No ads, no analytics, no trackers, no servers of ours: your data stays on your device, and optional AI, voice and search requests go straight from your phone to the service you use.">
 
 <!-- Font: JetBrains Mono — SIL Open Font License 1.1 (open source, free for commercial use) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -299,26 +299,26 @@ strong { color: #fff; font-weight: 700; }
 
     <div class="titlebar" aria-hidden="true">
       <span class="titlebar__dot"></span><span class="titlebar__dot"></span><span class="titlebar__dot"></span>
-      <span class="titlebar__path">phone-terminal@android:~/legal/privacy_policy</span>
+      <span class="titlebar__path">terminal-agent@android:~/legal/privacy_policy</span>
     </div>
 
     <!-- HEADER -->
     <header class="block hero">
       <p class="hero__prompt" aria-hidden="true"><b>$</b> cat privacy_policy.txt</p>
-      <h1 class="hero__title"><span aria-hidden="true">&gt;_ </span>PHONE TERMINAL<span class="visually-hidden"> — Privacy Policy</span><i class="cursor" aria-hidden="true"></i></h1>
+      <h1 class="hero__title"><span aria-hidden="true">&gt;_ </span>TERMINAL AGENT<span class="visually-hidden"> — Privacy Policy</span><i class="cursor" aria-hidden="true"></i></h1>
       <p class="hero__meta">
         <span>doc: <b>PRIVACY_POLICY</b></span>
         <span>platform: <b>Android</b></span>
-        <span>last_updated: <b><time datetime="2026-10-28">2026-10-28</time></b></span>
+        <span>last_updated: <b><time datetime="2026-11-17">2026-11-17</time></b></span>
       </p>
 
       <div class="tldr" role="note" aria-label="Summary">
         <span class="tldr__tag">TL;DR</span>
         <p>
           <strong>We never receive your data.</strong>
-          There are no servers of ours, no accounts, no ads, no analytics and no trackers, and nothing is ever sold.
-          Your commands, notes and settings are saved <strong>only on your device</strong> and are excluded from cloud backup.
-          The only network request the app makes is the <code>&gt; ping</code> check you run yourself.
+          We run no servers, there are no accounts, no ads, no analytics and no trackers, and nothing is ever sold.
+          Your commands, notes and settings stay <strong>on your device</strong>.
+          The optional AI, voice and web-search features send what you ask <strong>directly from your phone</strong> to the service you use (for example your own AI provider), never to us.
         </p>
       </div>
     </header>
@@ -327,9 +327,13 @@ strong { color: #fff; font-weight: 700; }
     <nav class="block" aria-labelledby="toc-title">
       <h2 class="h2" id="toc-title">Contents</h2>
       <ul class="toc term-list">
-        <li><a href="#data">Data Collection &amp; Storage</a></li>
-        <li><a href="#permissions">Required Permissions</a></li>
-        <li><a href="#third-parties">Ads, Analytics &amp; Trackers</a></li>
+        <li><a href="#data">Data on Your Device</a></li>
+        <li><a href="#ai">AI Features (optional)</a></li>
+        <li><a href="#voice">Voice Input</a></li>
+        <li><a href="#search">Web Search</a></li>
+        <li><a href="#scan">File Check (scan)</a></li>
+        <li><a href="#permissions">Permissions</a></li>
+        <li><a href="#third-parties">Services the App Talks To</a></li>
         <li><a href="#security">Security</a></li>
         <li><a href="#children">Children's Privacy</a></li>
         <li><a href="#changes">Policy Changes</a></li>
@@ -339,94 +343,153 @@ strong { color: #fff; font-weight: 700; }
 
     <!-- DATA -->
     <section class="block" id="data" aria-labelledby="data-title">
-      <h2 class="h2" id="data-title">Data Collection &amp; Storage</h2>
-      <p>PHONE TERMINAL is an offline-first productivity tool. We do not operate servers that receive data from the app, and there are no user accounts.</p>
+      <h2 class="h2" id="data-title">Data on Your Device</h2>
+      <p>TERMINAL AGENT (formerly PHONE TERMINAL) is a terminal-style productivity app. We do not operate any server that receives data from the app, and there are no user accounts.</p>
       <ul class="term-list">
         <li>We collect no personal information (name, email, phone number, contacts, location, device identifiers, etc.).</li>
-        <li>The app contains zero ads, zero analytics, and zero third-party trackers.</li>
-        <li>We never receive, sell, rent or share your data. Nothing leaves your device except the <code>&gt; ping</code> check described below, and what you choose to pass to another app or your browser.</li>
-        <li>Custom commands, notes and app settings are stored <strong>locally only</strong>, in the app's private storage, which Android's app sandbox keeps unreadable by other apps.</li>
-        <li>Android cloud backup and device-to-device transfer of the app's data are disabled, so this data never leaves your device through backups.</li>
-        <li>Uninstalling the app permanently removes all locally stored data.</li>
-        <li>Some commands read information <strong>on your device only</strong>, to show it to you, and never send it anywhere: Android version, device model, uptime, battery level, temperature and charging state, free memory and storage, screen size and processor (<code>&gt; sys</code>, <code>&gt; neofetch</code>, <code>&gt; uptime</code>), and your device's local network address (<code>&gt; ip</code>).</li>
-        <li>To let you open and connect your own apps, the app reads the list of apps on your device that have a launcher icon (their names and icons), on your device only. This is used by <code>CONNECT APPS</code>, <code>CREATE COMMAND</code> and <code>&gt; open &lt;app&gt;</code>. It is never sent anywhere.</li>
-        <li><strong>Clipboard.</strong> The app reads your clipboard only when you tap <code>PASTE</code> in the custom ASCII art screen, to paste the art you copied. It writes to your clipboard only when you ask it to: copying the art prompt, <code>&gt; pass</code> (a new password), or a clipboard command you created.</li>
+        <li>Custom commands, notes, settings, the terminal history, websites the AI builds for you and the downloaded on-device AI model are stored <strong>only</strong> in the app's private storage, which Android keeps unreadable by other apps.</li>
+        <li>Android cloud backup and device-to-device transfer of the app's data are disabled. Uninstalling the app permanently removes all of it.</li>
+        <li>Some commands read information <strong>on your device only</strong>, to show it to you: Android version, device model, uptime, battery, free memory and storage, screen and processor (<code>&gt; sys</code>, <code>&gt; neofetch</code>, <code>&gt; uptime</code>) and your local network address (<code>&gt; ip</code>).</li>
+        <li>To open and connect your apps, the app reads the list of apps that have a launcher icon (names and icons), on your device only (<code>CONNECT APPS</code>, <code>CREATE COMMAND</code>, <code>&gt; open &lt;app&gt;</code>).</li>
+        <li><strong>Clipboard.</strong> Read only when you tap <code>PASTE</code> in the ASCII art screen; written only when you ask (copying the art prompt, <code>&gt; pass</code>, or a clipboard command you made).</li>
+      </ul>
+    </section>
+
+    <!-- AI -->
+    <section class="block" id="ai" aria-labelledby="ai-title">
+      <h2 class="h2" id="ai-title">AI Features (optional)</h2>
+      <p>The AI is <strong>off</strong> until you turn it on in <code>CONNECT AI</code>. You choose one of two brains:</p>
+      <ul class="term-list">
+        <li><strong>On-device model.</strong> Runs entirely on your phone; what you type is not sent anywhere. The model file (about 290 MB) is downloaded once, when you ask for it, from the app's public release page on GitHub. Like any download, GitHub sees your IP address for that request.</li>
+        <li><strong>Your own API key</strong> (for example Anthropic Claude, Google Gemini, OpenAI, OpenRouter or another compatible service you enter). The app then sends, <strong>directly from your phone to that provider</strong>: the text you type or say to the AI, the app's instructions, and, only when you use them, the photos or documents you attach with <code>attach</code> and the file names, sizes and text of files in folders you shared with <code>folders add</code>. The provider's own privacy policy and terms apply to that data, and the provider bills you directly. We never see your key or your requests.</li>
+        <li>Your API key is stored on your phone, encrypted with a key kept in the Android Keystore. You can remove it at any time in <code>CONNECT AI</code>.</li>
+        <li><strong>Folders.</strong> The AI agent can see only the folders you pick yourself with Android's folder picker. It never changes, moves or deletes a file unless you answer <code>y</code> to its question first. <code>folders clear</code> removes all access.</li>
+        <li><strong>Websites the AI builds</strong> are saved in the app's private storage. When you open one, the page may load fonts or scripts from public web libraries it links to (for example Google Fonts or cdnjs).</li>
+      </ul>
+    </section>
+
+    <!-- VOICE -->
+    <section class="block" id="voice" aria-labelledby="voice-title">
+      <h2 class="h2" id="voice-title">Voice Input</h2>
+      <ul class="term-list">
+        <li>The microphone is used <strong>only while you tap the mic button</strong> and speak; it stops by itself when you finish. Android shows its microphone indicator while it is on.</li>
+        <li>Your speech is turned into text by your phone's own speech recognition service (for example the Google app). That service may process the audio on the device or on its maker's servers, under its own privacy policy.</li>
+        <li>The app itself never records, saves or sends audio. It only receives the recognised text, which is then handled exactly like text you typed.</li>
+      </ul>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="block" id="search" aria-labelledby="search-title">
+      <h2 class="h2" id="search-title">Web Search</h2>
+      <ul class="term-list">
+        <li>When you run <code>&gt; search &lt;words&gt;</code>, the words you typed are sent to a search service: with your own AI key, to that AI provider's web search (for example Google Search through Gemini, or Anthropic's web search); without a key, to the free DuckDuckGo Instant Answer API and Wikipedia.</li>
+        <li>No personal data is added to the search. These services see your IP address, as with any web request.</li>
+        <li><code>&gt; go 1</code> or <code>&gt; go web</code> opens a result in your browser, where the browser's and website's own policies apply.</li>
+      </ul>
+    </section>
+
+    <!-- SCAN -->
+    <section class="block" id="scan" aria-labelledby="scan-title">
+      <h2 class="h2" id="scan-title">File Check (scan)</h2>
+      <ul class="term-list">
+        <li>When you pick a file with the shield button or <code>&gt; scan</code>, the app copies it into its private storage, checks it <strong>on your phone</strong>, and deletes the copy straight after. The file is never uploaded.</li>
+        <li>The check also computes the file's SHA-256 fingerprint. Only if you type <code>&gt; go vt</code>, your browser opens that fingerprint's page on VirusTotal; the file itself is not sent.</li>
+        <li>This is a quick check for common tricks, not a full antivirus.</li>
       </ul>
     </section>
 
     <!-- PERMISSIONS -->
     <section class="block" id="permissions" aria-labelledby="perm-title">
-      <h2 class="h2" id="perm-title">Required Permissions</h2>
-      <p class="muted">PHONE TERMINAL requests only the permissions below. Each is used only for the feature described.</p>
+      <h2 class="h2" id="perm-title">Permissions</h2>
+      <p class="muted">TERMINAL AGENT requests only the permissions below. Each is used only for the feature described.</p>
 
       <div class="perms">
         <article class="perm">
-          <span class="perm__idx">[1/5]</span>
+          <span class="perm__idx">[1/8]</span>
           <h3 class="perm__name"><code>SYSTEM_ALERT_WINDOW</code></h3>
           <span class="perm__label">Display over other apps</span>
-          <p>Required to draw the Floating Terminal HUD, the custom Screen Dimmer filter, and the real-time FPS monitor overlay on top of the screen.</p>
+          <p>Draws the Floating Terminal HUD, the screen dimmer and the FPS counter on top of the screen.</p>
         </article>
 
         <article class="perm">
-          <span class="perm__idx">[2/5]</span>
+          <span class="perm__idx">[2/8]</span>
           <h3 class="perm__name"><code>FOREGROUND_SERVICE</code> + <code>FOREGROUND_SERVICE_SPECIAL_USE</code></h3>
           <span class="perm__label">Keep the HUD running</span>
-          <p>Keep the Floating Terminal HUD alive while you use other apps, with an ongoing notification that has a <code>CLOSE HUD</code> button. It runs only after you start the HUD yourself.</p>
+          <p>Keeps the Floating Terminal HUD alive while you use other apps, with an ongoing notification that has a <code>CLOSE HUD</code> button. It runs only after you start the HUD yourself.</p>
         </article>
 
         <article class="perm">
-          <span class="perm__idx">[3/5]</span>
+          <span class="perm__idx">[3/8]</span>
           <h3 class="perm__name"><code>POST_NOTIFICATIONS</code></h3>
           <span class="perm__label">Show notifications</span>
-          <p>Show the HUD's ongoing notification (Android 13 and later). No other notifications are sent. You can deny it and the app still works.</p>
+          <p>Shows the HUD's ongoing notification (Android 13 and later). You can deny it and the app still works.</p>
         </article>
 
         <article class="perm">
-          <span class="perm__idx">[4/5]</span>
+          <span class="perm__idx">[4/8]</span>
           <h3 class="perm__name"><code>INTERNET</code></h3>
           <span class="perm__label">Network access</span>
-          <p>Required strictly for the <code>&gt; ping</code> command, which checks whether the host you type is reachable (your network looks up that name first). If you type no host, and for the home-screen widget's PING shortcut, it checks <code>8.8.8.8</code> (Google Public DNS). No data about you is sent.</p>
+          <p>Used only for features you start: <code>&gt; ping</code>, the AI with your own key, downloading the on-device model, <code>&gt; search</code>, and checking Google Play for app updates. No data about you is added.</p>
         </article>
 
         <article class="perm">
-          <span class="perm__idx">[5/5]</span>
+          <span class="perm__idx">[5/8]</span>
+          <h3 class="perm__name"><code>RECORD_AUDIO</code></h3>
+          <span class="perm__label">Microphone</span>
+          <p>Asked the first time you tap the mic button, so you can speak commands (see Voice Input). The app never records or stores audio.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[6/8]</span>
           <h3 class="perm__name"><code>SET_ALARM</code></h3>
           <span class="perm__label">Set alarms &amp; timers</span>
-          <p>Required by the <code>&gt; timer</code> command to silently schedule background countdown timers with the system Clock app without interrupting the user's active screen.</p>
+          <p>Lets <code>&gt; timer</code> start a countdown in your Clock app.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[7/8]</span>
+          <h3 class="perm__name"><code>VIBRATE</code></h3>
+          <span class="perm__label">Vibration</span>
+          <p>A short tick at the start and end of <code>&gt; matrix</code>.</p>
+        </article>
+
+        <article class="perm">
+          <span class="perm__idx">[8/8]</span>
+          <h3 class="perm__name">Files you pick</h3>
+          <span class="perm__label">No storage permission</span>
+          <p>The app has no permission to read your storage. It sees only the single files or folders you choose yourself in Android's picker (<code>attach</code>, <code>scan</code>, <code>folders add</code>).</p>
         </article>
       </div>
     </section>
 
-    <!-- ADS / ANALYTICS / TRACKERS -->
+    <!-- THIRD PARTIES -->
     <section class="block" id="third-parties" aria-labelledby="tp-title">
-      <h2 class="h2" id="tp-title">Ads, Analytics &amp; Trackers</h2>
+      <h2 class="h2" id="tp-title">Services the App Talks To</h2>
       <ul class="term-list">
-        <li><strong>Zero ads.</strong> The app contains no advertising of any kind.</li>
-        <li><strong>Zero analytics.</strong> The app contains no analytics or crash-reporting tools.</li>
-        <li><strong>Zero third-party trackers.</strong> The app includes no third-party tracking SDKs and shares no data with advertisers, data brokers, or analytics providers.</li>
-        <li>The app works offline. The only network requests the app itself makes are the <code>&gt; ping</code> checks described above.</li>
-        <li>Shortcut commands you run yourself (for example web searches, <code>&gt; wa</code>, or sending a note to an app you connected) open your browser or that other app through standard Android intents, passing only the text you typed. From that point, that app's own privacy policy applies.</li>
-        <li><strong>Purchases.</strong> The app is bought through Google Play, which handles the payment under Google's own privacy policy. We never see your card or payment details. Google Play gives developers standard order records for paid apps, and we use them only for refunds and support.</li>
-        <li><strong>This web page.</strong> When you open this policy in a web browser, the page loads the JetBrains Mono font from Google Fonts. The copy of this policy shown inside the app loads nothing from the internet.</li>
+        <li><strong>Zero ads, zero analytics, zero trackers.</strong> No advertising, analytics, crash-reporting or tracking SDKs, and no data shared with advertisers or data brokers.</li>
+        <li>The app contacts other services <strong>only</strong> for features you use, directly from your phone: the AI provider of your own key, GitHub (on-device model download), DuckDuckGo and Wikipedia (free search), Google Play (purchase and update check), and your phone's speech service (voice input). Each one's own privacy policy applies.</li>
+        <li>Shortcut commands you run yourself (for example <code>&gt; wa</code>, opening a link, or sending a note to an app you connected) open that app or your browser with only the text you typed.</li>
+        <li><strong>Purchases.</strong> Handled by Google Play under Google's privacy policy. We never see your payment details; we use Google Play's standard order records only for refunds and support.</li>
+        <li><strong>This web page.</strong> In a browser it loads the JetBrains Mono font from Google Fonts. The copy inside the app loads nothing from the internet.</li>
       </ul>
     </section>
 
     <!-- SECURITY -->
     <section class="block" id="security" aria-labelledby="sec-title">
       <h2 class="h2" id="sec-title">Security</h2>
-      <p>Because your data never leaves your device, its protection relies on Android's app sandbox, which prevents other apps from reading PHONE TERMINAL's private storage. We recommend keeping your device locked and your operating system up to date.</p>
+      <p>Your data is protected by Android's app sandbox, and your AI key is encrypted with the Android Keystore. All network requests use HTTPS. If the app detects that it was modified or tampered with, it deletes the saved AI key and refuses AI calls. We recommend keeping your phone locked and up to date.</p>
     </section>
 
     <!-- CHILDREN -->
     <section class="block" id="children" aria-labelledby="kids-title">
       <h2 class="h2" id="kids-title">Children's Privacy</h2>
-      <p>Since we collect no personal data from anyone, we do not knowingly collect personal information from children.</p>
+      <p>The app is not directed at children. We collect no personal data from anyone, including children.</p>
     </section>
 
     <!-- CHANGES -->
     <section class="block" id="changes" aria-labelledby="chg-title">
       <h2 class="h2" id="chg-title">Policy Changes</h2>
-      <p>If this policy changes, the updated version will be posted on this page with a new "last_updated" date. Any change that affects data handling or permissions will also be reflected in the app's Google Play listing.</p>
+      <p>If this policy changes, the new version is posted on this page with a new "last_updated" date. Changes that affect data handling or permissions are also reflected in the app's Google Play listing.</p>
     </section>
 
     <!-- CONTACT -->
@@ -440,7 +503,7 @@ strong { color: #fff; font-weight: 700; }
   </main>
 
   <footer class="footer">
-    <p>&copy; 2026 PHONE TERMINAL — exit 0<i class="cursor" aria-hidden="true"></i></p>
+    <p>&copy; 2026 TERMINAL AGENT — exit 0<i class="cursor" aria-hidden="true"></i></p>
   </footer>
 </div>
 
