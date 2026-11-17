@@ -361,8 +361,9 @@ strong { color: #fff; font-weight: 700; }
       <p>The AI is <strong>off</strong> until you turn it on in <code>CONNECT AI</code>. You choose one of two brains:</p>
       <ul class="term-list">
         <li><strong>On-device model.</strong> Runs entirely on your phone; what you type is not sent anywhere. The model file (about 290 MB) is downloaded once, when you ask for it, from the app's public release page on GitHub. Like any download, GitHub sees your IP address for that request.</li>
-        <li><strong>Your own API key</strong> (for example Anthropic Claude, Google Gemini, OpenAI, OpenRouter or another compatible service you enter). The app then sends, <strong>directly from your phone to that provider</strong>: the text you type or say to the AI, the app's instructions, and, only when you use them, the photos or documents you attach with <code>attach</code> and the file names, sizes and text of files in folders you shared with <code>folders add</code>. The provider's own privacy policy and terms apply to that data, and the provider bills you directly. We never see your key or your requests.</li>
+        <li><strong>Your own API key</strong> (for example Anthropic Claude, Google Gemini, OpenAI, OpenRouter or another compatible service you enter). The app then sends, <strong>directly from your phone to that provider</strong>: the text you type or say to the AI, the app's instructions (which include the names of your own custom commands and the start of what each one does), the results of phone commands the AI runs for you (for example battery and memory info or your notes list), and, only when you use them, the photos or documents you attach with <code>attach</code> and the file names, sizes and text of files in folders you shared with <code>folders add</code>. The provider's own privacy policy and terms apply to that data, and the provider bills you directly. We never see your key or your requests.</li>
         <li>Your API key is stored on your phone, encrypted with a key kept in the Android Keystore. You can remove it at any time in <code>CONNECT AI</code>.</li>
+        <li><strong>Finding your key's provider.</strong> Most keys show their provider in their first letters, and nothing is sent. If yours does not, the app asks Google Gemini, OpenAI, Anthropic and OpenRouter one by one, with a free "list models" request, which of them accepts the key, and stops at the first that does. Only the key is sent in those requests, never your text.</li>
         <li><strong>Folders.</strong> The AI agent can see only the folders you pick yourself with Android's folder picker. It never changes, moves or deletes a file unless you answer <code>y</code> to its question first. <code>folders clear</code> removes all access.</li>
         <li><strong>Websites the AI builds</strong> are saved in the app's private storage. When you open one, the page may load fonts or scripts from public web libraries it links to (for example Google Fonts or cdnjs).</li>
       </ul>
@@ -394,6 +395,7 @@ strong { color: #fff; font-weight: 700; }
       <ul class="term-list">
         <li>When you pick a file with the shield button or <code>&gt; scan</code>, the app copies it into its private storage, checks it <strong>on your phone</strong>, and deletes the copy straight after. The file is never uploaded.</li>
         <li>The check also computes the file's SHA-256 fingerprint. Only if you type <code>&gt; go vt</code>, your browser opens that fingerprint's page on VirusTotal; the file itself is not sent.</li>
+        <li>If a photo carries a GPS location in its hidden data, the check tells you so on your screen, so you can remove it before sharing. That location is never sent anywhere.</li>
         <li>This is a quick check for common tricks, not a full antivirus.</li>
       </ul>
     </section>
@@ -467,7 +469,7 @@ strong { color: #fff; font-weight: 700; }
       <h2 class="h2" id="tp-title">Services the App Talks To</h2>
       <ul class="term-list">
         <li><strong>Zero ads, zero analytics, zero trackers.</strong> No advertising, analytics, crash-reporting or tracking SDKs, and no data shared with advertisers or data brokers.</li>
-        <li>The app contacts other services <strong>only</strong> for features you use, directly from your phone: the AI provider of your own key, GitHub (on-device model download), DuckDuckGo and Wikipedia (free search), Google Play (purchase and update check), and your phone's speech service (voice input). Each one's own privacy policy applies.</li>
+        <li>The app contacts other services <strong>only</strong> for features you use, directly from your phone: the AI provider of your own key, GitHub (on-device model download), DuckDuckGo and Wikipedia (free search), Google's public DNS server 8.8.8.8 or the address you type (<code>&gt; ping</code>), Google Play (purchase and update check), and your phone's speech service (voice input). Each one's own privacy policy applies.</li>
         <li>Shortcut commands you run yourself (for example <code>&gt; wa</code>, opening a link, or sending a note to an app you connected) open that app or your browser with only the text you typed.</li>
         <li><strong>Purchases.</strong> Handled by Google Play under Google's privacy policy. We never see your payment details; we use Google Play's standard order records only for refunds and support.</li>
         <li><strong>This web page.</strong> In a browser it loads the JetBrains Mono font from Google Fonts. The copy inside the app loads nothing from the internet.</li>
